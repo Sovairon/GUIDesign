@@ -17,12 +17,35 @@ namespace GUIWork
         {
             InitializeComponent();
             GetPorts();
+            comboBox2.SelectedIndex = 9;
 
         }
 
+        SerialPort port = new SerialPort();
+        SerialPort sp;
+        string indata;
+        int baudRate = 300;
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            Connect(comboBox1.SelectedItem.ToString());
+            if (!port.IsOpen && comboBox1.SelectedIndex>-1)
+            {
+                Connect(comboBox1.SelectedItem.ToString());
+            }
+            else if (port.IsOpen)
+            {
+                Disconnect();
+            }
+            else
+            {
+                labelStatus.Text = "Select Port";
+                labelStatus.ForeColor = System.Drawing.Color.Crimson;
+                Console.WriteLine("Error on connection. GZ, you managed to break it.");
+            }
+
+                   
+            
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -50,21 +73,20 @@ namespace GUIWork
 
         }
 
-        SerialPort port = new SerialPort();
 
         private void Connect(string portName)
         {
             try
             {
-                if (!port.IsOpen)
-                {
-                    port = new SerialPort(portName);
-                    port.BaudRate = 115200;
-                    port.Open();
-                    port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-                    port.DtrEnable = true;
-                    MessageBox.Show("Connected!");
-                }
+                port = new SerialPort(portName);
+                port.BaudRate = baudRate;
+                port.Open();
+                port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                port.DtrEnable = true;
+                //MessageBox.Show("Connected!");
+                labelStatus.ForeColor = System.Drawing.Color.MidnightBlue;
+                labelStatus.Text = "Connected";
+                ConnectBtn.Text = "Disconnect";
             }
             catch
             {
@@ -73,9 +95,20 @@ namespace GUIWork
             
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void Disconnect()
         {
+            try
+            {
+                port.Close();
+                //MessageBox.Show("Disconnected!");
+                labelStatus.ForeColor = System.Drawing.Color.Firebrick;
+                labelStatus.Text = "Disconnected";
+                ConnectBtn.Text = "Connect";
+            }
+            catch
+            { 
 
+            }
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -117,8 +150,7 @@ namespace GUIWork
             txtbox.AppendText(Text);
         }
 
-        SerialPort sp;
-        string indata;
+
 
         delegate void SetTextCallback(string text);
 
@@ -147,6 +179,56 @@ namespace GUIWork
         private void button3_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
+        }
+
+        private void label6_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox2.SelectedIndex)
+            {
+                case 0:
+                    baudRate = 300;
+                    break;
+                case 1:
+                    baudRate = 1200;
+                    break;
+                case 2:
+                    baudRate = 2400;
+                    break;
+                case 3:
+                    baudRate = 4800;
+                    break;
+                case 4:
+                    baudRate = 9600;
+                    break;
+                case 5:
+                    baudRate = 19200;
+                    break;
+                case 6:
+                    baudRate = 38400;
+                    break;
+                case 7:
+                    baudRate = 57600;
+                    break;
+                case 8:
+                    baudRate = 74880;
+                    break;
+                case 9:
+                    baudRate = 115200;
+                    break;
+                case 10:
+                    baudRate = 230400;
+                    break;
+                case 11:
+                    baudRate = 250000;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

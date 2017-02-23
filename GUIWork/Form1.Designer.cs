@@ -43,11 +43,15 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ConnectBtn
             // 
-            this.ConnectBtn.Location = new System.Drawing.Point(234, 59);
+            this.ConnectBtn.Location = new System.Drawing.Point(234, 95);
             this.ConnectBtn.Name = "ConnectBtn";
             this.ConnectBtn.Size = new System.Drawing.Size(107, 23);
             this.ConnectBtn.TabIndex = 0;
@@ -135,9 +139,9 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(222, 121);
+            this.richTextBox1.Location = new System.Drawing.Point(222, 175);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(160, 361);
+            this.richTextBox1.Size = new System.Drawing.Size(160, 333);
             this.richTextBox1.TabIndex = 11;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -165,18 +169,71 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(219, 105);
+            this.label1.Location = new System.Drawing.Point(219, 159);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 16;
             this.label1.Text = "Communication log:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(202, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(26, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Port";
+            this.label6.Click += new System.EventHandler(this.label6_Click_1);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(170, 64);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(58, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Baud Rate";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "300 baud",
+            "1200 baud",
+            "2400 baud",
+            "4800 baud",
+            "9600 baud",
+            "19200 baud",
+            "38400 baud",
+            "57600 baud",
+            "74880 baud",
+            "115200 baud",
+            "230400 baud",
+            "250000 baud"});
+            this.comboBox2.Location = new System.Drawing.Point(234, 61);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(107, 21);
+            this.comboBox2.TabIndex = 19;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.labelStatus.Location = new System.Drawing.Point(234, 130);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(0, 13);
+            this.labelStatus.TabIndex = 20;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(394, 544);
+            this.Controls.Add(this.labelStatus);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
@@ -215,6 +272,10 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label labelStatus;
     }
 }
 
