@@ -140,6 +140,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(160, 361);
             this.richTextBox1.TabIndex = 11;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // button3
             // 
@@ -149,6 +150,7 @@
             this.button3.TabIndex = 12;
             this.button3.Text = "Clear";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button1
             // 

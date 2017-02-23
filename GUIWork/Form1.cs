@@ -17,6 +17,7 @@ namespace GUIWork
         {
             InitializeComponent();
             GetPorts();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,16 +50,30 @@ namespace GUIWork
 
         }
 
+        SerialPort port = new SerialPort();
+
         private void Connect(string portName)
         {
-            var port = new SerialPort(portName);
             //var portfrm = comboBox1.SelectedItem;
-            if (!port.IsOpen)
+
+            try
             {
-                port.BaudRate = 19200;
-                port.Open();
-                MessageBox.Show("Connected!");
+                if (!port.IsOpen)
+                {
+                    port = new SerialPort(portName);
+                    port.BaudRate = 9600;
+                    port.Open();
+                    port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                    port.DtrEnable = true;
+                    MessageBox.Show("Connected!");
+                    //ConnectBtn.Enabled = false;
+                }
             }
+            catch
+            {
+                Console.WriteLine("Exception at SerialPort. GZ you managed to break it.");
+            }
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -84,7 +99,68 @@ namespace GUIWork
             {
                 comboBox1.Items.Add(comport);
             }
-            comboBox1.SelectedIndex = 0;
+            try
+            {
+                comboBox1.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No Ports Available");
+                //throw;
+            }
+            
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private static void AddText(string Text, RichTextBox txtbox)
+        {
+            txtbox.AppendText(Text);
+        }
+
+        //string new_data;
+        SerialPort sp;
+        string indata;
+
+        delegate void SetTextCallback(string text);
+
+        private void SetText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.richTextBox1.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.richTextBox1.AppendText(text);
+            }
+        }
+
+        private void DataReceivedHandler( object sender, SerialDataReceivedEventArgs e)
+        {
+            sp = (SerialPort)sender;
+            indata = sp.ReadLine();
+            //Console.WriteLine("Data Received:");
+            //AddText(indata, richTextBox1);
+            //richTextBox1.AppendText(indata);
+            SetText(indata);
+
+
+            Console.Write(indata);
+
+            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
         }
     }
 }
