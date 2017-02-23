@@ -54,19 +54,16 @@ namespace GUIWork
 
         private void Connect(string portName)
         {
-            //var portfrm = comboBox1.SelectedItem;
-
             try
             {
                 if (!port.IsOpen)
                 {
                     port = new SerialPort(portName);
-                    port.BaudRate = 9600;
+                    port.BaudRate = 115200;
                     port.Open();
                     port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
                     port.DtrEnable = true;
                     MessageBox.Show("Connected!");
-                    //ConnectBtn.Enabled = false;
                 }
             }
             catch
@@ -106,7 +103,6 @@ namespace GUIWork
             catch (Exception)
             {
                 Console.WriteLine("No Ports Available");
-                //throw;
             }
             
         }
@@ -121,7 +117,6 @@ namespace GUIWork
             txtbox.AppendText(Text);
         }
 
-        //string new_data;
         SerialPort sp;
         string indata;
 
@@ -129,9 +124,6 @@ namespace GUIWork
 
         private void SetText(string text)
         {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
             if (this.richTextBox1.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
@@ -147,15 +139,9 @@ namespace GUIWork
         {
             sp = (SerialPort)sender;
             indata = sp.ReadLine();
-            //Console.WriteLine("Data Received:");
-            //AddText(indata, richTextBox1);
-            //richTextBox1.AppendText(indata);
             SetText(indata);
 
-
             Console.Write(indata);
-
-            
         }
 
         private void button3_Click(object sender, EventArgs e)
