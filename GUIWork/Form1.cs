@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 
+//toplanan verilerin ayni klasorde toplanmasi
+
+
 namespace GUIWork
 {
     public partial class Form1 : Form
@@ -24,7 +27,9 @@ namespace GUIWork
         SerialPort port = new SerialPort();
         SerialPort sp;
         string indata;
+        static string csvFilePath = "C:/Test/csv.txt"; //Work In Progress
         int baudRate = 300;
+        System.IO.StreamWriter csv = new System.IO.StreamWriter(@csvFilePath);
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -174,6 +179,8 @@ namespace GUIWork
             SetText(indata);
 
             Console.Write(indata);
+            csv.WriteLine(indata);
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -230,6 +237,9 @@ namespace GUIWork
                     break;
             }
         }
+        //public void csvFileLocation(string filename) {
+        //    csvFilePath = "C:/GUIWorkCSV/test.csv";
+        //}
     }
 }
 
